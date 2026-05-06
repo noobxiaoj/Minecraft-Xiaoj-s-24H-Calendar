@@ -1,0 +1,6 @@
+{
+  "commands.xiaoj_24h_calendar.adddays.success": "Date advanced by %s day(s). Current date: Month %s, Day %s.",
+  "commands.xiaoj_24h_calendar.date": "Current date: Month %s, Day %s.",
+  "commands.xiaoj_24h_calendar.set.invalid": "Invalid date. Month must be 1-4 and day must be 1-30.",
+  "commands.xiaoj_24h_calendar.set.success": "Date set to Month %s, Day %s."
+}

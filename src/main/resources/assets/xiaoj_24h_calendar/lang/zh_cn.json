@@ -1,0 +1,6 @@
+{
+  "commands.xiaoj_24h_calendar.adddays.success": "日期已推进 %s 天。当前日期：第 %s 月第 %s 日。",
+  "commands.xiaoj_24h_calendar.date": "当前日期：第 %s 月第 %s 日。",
+  "commands.xiaoj_24h_calendar.set.invalid": "日期无效。月份必须为 1-4，日期必须为 1-30。",
+  "commands.xiaoj_24h_calendar.set.success": "日期已设置为：第 %s 月第 %s 日。"
+}

@@ -1,0 +1,36 @@
+# Gradle
+.gradle/
+build/
+**/build/
+
+# Minecraft run directories and generated local state
+run/
+runs/
+logs/
+crash-reports/
+
+# IDEs
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# Local-only configuration
+.env
+.env.*
+local.properties
+.agents/
+.codex/
+docs/
+
+# Generated archives outside Gradle build dirs
+*.jar
+!gradle/wrapper/gradle-wrapper.jar
