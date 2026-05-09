@@ -225,7 +225,7 @@ public final class CalendarCommands {
         }
 
         CalendarDate date = data.date();
-        source.sendSuccess(() -> addDaysComponent(date), true);
+        source.sendSuccess(() -> addDaysComponent(days, date), true);
 
         return 1;
     }
@@ -250,14 +250,18 @@ public final class CalendarCommands {
     /**
      * 创建推进日期后的命令反馈文本。
      *
-     * <p>日期类命令统一只显示短日期，例如“霜雪月16日”或“12月16日”，避免聊天栏出现
-     * 过长的说明文字。
-     *
+     * @param days 本次推进的天数
      * @param date 推进后的日期
      * @return 本地化后的命令反馈文本
      */
-    private static Component addDaysComponent(CalendarDate date) {
-        return dateComponent("commands.xiaoj_24h_calendar.adddays.success", date);
+    private static Component addDaysComponent(int days, CalendarDate date) {
+        String keyPrefix = "commands.xiaoj_24h_calendar.adddays.success";
+
+        if (CalendarConfig.useTwelveMonths()) {
+            return Component.translatable(keyPrefix + ".month_number", days, date.month(), date.day());
+        }
+
+        return Component.translatable(keyPrefix + ".month_name", days, date.monthName(), date.day());
     }
 
     /**
