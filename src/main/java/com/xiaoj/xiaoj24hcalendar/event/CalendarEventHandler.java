@@ -6,6 +6,7 @@ import net.neoforged.neoforge.event.tick.ServerTickEvent;
 
 import com.xiaoj.xiaoj24hcalendar.calendar.CalendarSavedData;
 import com.xiaoj.xiaoj24hcalendar.command.CalendarCommands;
+import com.xiaoj.xiaoj24hcalendar.compat.SeasonCompatManager;
 
 /**
  * NeoForge 事件监听入口。
@@ -37,6 +38,11 @@ public final class CalendarEventHandler {
      */
     public static void onServerTickPost(ServerTickEvent.Post event) {
         MinecraftServer server = event.getServer();
-        CalendarSavedData.get(server).updateFromOverworld(server.overworld());
+        CalendarSavedData data = CalendarSavedData.get(server);
+        data.updateFromOverworld(server.overworld());
+
+        if (SeasonCompatManager.syncIfNeeded(server.overworld(), data.date())) {
+            data.rebindObservedDay(server.overworld());
+        }
     }
 }

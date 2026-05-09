@@ -1,6 +1,13 @@
 {
-  "commands.xiaoj_24h_calendar.adddays.success": "Date advanced by %s day(s). Current date: Month %s, Day %s.",
-  "commands.xiaoj_24h_calendar.date": "Current date: Month %s, Day %s.",
-  "commands.xiaoj_24h_calendar.set.invalid": "Invalid date. Month must be 1-4 and day must be 1-30.",
-  "commands.xiaoj_24h_calendar.set.success": "Date set to Month %s, Day %s."
+  "commands.xiaoj_24h_calendar.calendar.disabled": "The month/date feature is disabled; only future 24H time features are active.",
+  "commands.xiaoj_24h_calendar.season.disabled": "Season synchronization is disabled; this mod will not control season mods, and installed season mods will use their own settings.",
+  "commands.xiaoj_24h_calendar.season.conflict": "Multiple season mods are installed; season synchronization is disabled.",
+  "commands.xiaoj_24h_calendar.season.none": "No supported season mod is installed.",
+  "commands.xiaoj_24h_calendar.adddays.success.month_name": "%s %s",
+  "commands.xiaoj_24h_calendar.adddays.success.month_number": "%s/%s",
+  "commands.xiaoj_24h_calendar.date.month_name": "%s %s",
+  "commands.xiaoj_24h_calendar.date.month_number": "%s/%s",
+  "commands.xiaoj_24h_calendar.set.invalid": "Invalid date. Month must be 1-%s and day must be 1-%s.",
+  "commands.xiaoj_24h_calendar.set.success.month_name": "%s %s",
+  "commands.xiaoj_24h_calendar.set.success.month_number": "%s/%s"
 }

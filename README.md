@@ -11,9 +11,22 @@ Xiaoj's 24H Calendar 是一个面向 Minecraft NeoForge 的日历模组。
 ## 当前功能
 
 - 无年份虚拟日期系统
-- 一年 4 个月，每个月 30 天
+- 默认一年 4 个月，每个月 30 天：芳花月、荷风月、枫落月、霜雪月
+- 可通过配置切换为 12 个月，每个月 30 天，月份使用数字显示
 - 日期随主世界天数推进
 - 命令查询和调整日期
+- Ecliptic Seasons 可选联动：一个循环平均同步为 24 个节气
+- Serene Seasons 可选联动：一个循环平均同步为 12 个 Early / Mid / Late 小季节
+- Fabric Seasons / Forge Seasons 可选联动：一个循环平均同步为 4 个大季节，没有 Early / Mid / Late 小季节
+- 如果同时安装多个受支持季节模组，季节联动会直接失效
+
+## 配置
+
+NeoForge 会生成服务端配置，包含：
+
+- `calendar.enableMonths`：是否启用本模组的月份/日期功能，关闭后日期不会推进，日期命令不可用，只保留后续 24H 时间功能
+- `calendar.enableSeasons`：是否由本模组同步受支持季节模组；关闭后不联动、不干预，季节模组按自己的配置运行
+- `calendar.useTwelveMonths`：是否启用 12 月制；开启后一年 12 个月，每月 30 天，月份使用数字显示
 
 ## 命令
 
@@ -22,6 +35,8 @@ Xiaoj's 24H Calendar 是一个面向 Minecraft NeoForge 的日历模组。
 /xcalendar set <month> <day>
 /xcalendar adddays <days>
 ```
+
+`/xcalendar season` 只会在月份功能开启、季节联动开启，并且刚好安装 1 个受支持季节模组时注册。
 
 ## 后续计划
 

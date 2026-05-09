@@ -8,6 +8,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.saveddata.SavedData;
 
 import com.xiaoj.xiaoj24hcalendar.Xiaoj24HCalendar;
+import com.xiaoj.xiaoj24hcalendar.config.CalendarConfig;
 
 /**
  * 保存当前世界的虚拟日历数据。
@@ -72,6 +73,8 @@ public class CalendarSavedData extends SavedData {
         int day = tag.getInt(TAG_DAY);
         if (CalendarDate.isValid(month, day)) {
             data.date = new CalendarDate(month, day);
+        } else if (month >= 1 && day >= 1 && day <= CalendarDate.DAYS_PER_MONTH) {
+            data.date = CalendarDate.fromStoredDate(month, day);
         }
 
         if (tag.contains(TAG_LAST_OBSERVED_DAY)) {
@@ -103,6 +106,11 @@ public class CalendarSavedData extends SavedData {
      * @return 当前日期
      */
     public CalendarDate date() {
+        if (!CalendarDate.isValid(date.month(), date.day())) {
+            date = CalendarDate.fromStoredDate(date.month(), date.day());
+            setDirty();
+        }
+
         return date;
     }
 
@@ -122,6 +130,14 @@ public class CalendarSavedData extends SavedData {
         }
 
         long currentMinecraftDay = Math.floorDiv(level.getDayTime(), Level.TICKS_PER_DAY);
+
+        if (!CalendarConfig.enableMonths()) {
+            if (lastObservedMinecraftDay != currentMinecraftDay) {
+                lastObservedMinecraftDay = currentMinecraftDay;
+                setDirty();
+            }
+            return false;
+        }
 
         if (lastObservedMinecraftDay == UNINITIALIZED_DAY) {
             lastObservedMinecraftDay = currentMinecraftDay;
@@ -153,7 +169,7 @@ public class CalendarSavedData extends SavedData {
      */
     public void setDate(CalendarDate newDate, ServerLevel overworld) {
         date = newDate;
-        lastObservedMinecraftDay = Math.floorDiv(overworld.getDayTime(), Level.TICKS_PER_DAY);
+        rebindObservedDay(overworld);
         setDirty();
     }
 
@@ -165,6 +181,21 @@ public class CalendarSavedData extends SavedData {
      */
     public void addDays(int days, ServerLevel overworld) {
         setDate(date.addDays(days), overworld);
+    }
+
+    /**
+     * 把内部跨天观察游标重新绑定到当前主世界时间。
+     *
+     * <p>大多数季节兼容层只写外部模组自己的存档，不会影响原版世界时间；但
+     * Fabric Seasons / Forge Seasons 的季节直接由世界 {@code dayTime} 推导，
+     * 因此兼容层必须调整世界时间。调整后调用这个方法，可以避免下一 tick 把这次
+     * 时间跳转误判成本模组日期需要额外推进或回退。
+     *
+     * @param overworld 当前主世界
+     */
+    public void rebindObservedDay(ServerLevel overworld) {
+        lastObservedMinecraftDay = Math.floorDiv(overworld.getDayTime(), Level.TICKS_PER_DAY);
+        setDirty();
     }
 
     /**

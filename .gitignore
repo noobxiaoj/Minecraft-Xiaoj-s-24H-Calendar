@@ -3,6 +3,9 @@
 build/
 **/build/
 
+# Java/IDE compile outputs
+bin/
+
 # Minecraft run directories and generated local state
 run/
 runs/

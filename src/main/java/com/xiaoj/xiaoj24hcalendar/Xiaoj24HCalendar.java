@@ -6,9 +6,11 @@ import com.mojang.logging.LogUtils;
 
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.neoforge.common.NeoForge;
 
+import com.xiaoj.xiaoj24hcalendar.config.CalendarConfig;
 import com.xiaoj.xiaoj24hcalendar.event.CalendarEventHandler;
 
 /**
@@ -34,6 +36,8 @@ public class Xiaoj24HCalendar {
      * @param modContainer 当前模组容器，保留参数用于符合现代 NeoForge 构造器风格。
      */
     public Xiaoj24HCalendar(IEventBus modEventBus, ModContainer modContainer) {
+        modContainer.registerConfig(ModConfig.Type.SERVER, CalendarConfig.SPEC);
+
         NeoForge.EVENT_BUS.addListener(CalendarEventHandler::onRegisterCommands);
         NeoForge.EVENT_BUS.addListener(CalendarEventHandler::onServerTickPost);
     }
